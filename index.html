@@ -3,8 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Supabase 기반 재사용형 회원가입/로그인/내 정보 관리 페이지" />
-  <title>Member Hub · 회원가입</title>
+  <meta name="description" content="Supabase로 만든 회원가입·로그인·내 정보 관리 실습 페이지. 강의용 예제입니다." />
+  <title>hd-08 멤버십 · 회원가입</title>
+
+  <link rel="canonical" href="https://aebonlee.github.io/hd-08/" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- 카카오톡 등으로 주소를 공유할 때 미리보기가 뜨게 하는 값들.
+       검증: https://developers.kakao.com/tool/debugger/sharing
+       og:image는 반드시 절대 URL이어야 한다. -->
+  <meta property="og:url" content="https://aebonlee.github.io/hd-08/" />
+  <meta property="og:title" content="hd-08 멤버십 · 회원가입" />
+  <meta property="og:description" content="Supabase로 만든 회원가입·로그인·내 정보 관리 실습 페이지. 강의용 예제입니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://aebonlee.github.io/hd-08/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="hd-08 멤버십" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="hd-08 멤버십 · 회원가입" />
+  <meta name="twitter:description" content="Supabase로 만든 회원가입·로그인·내 정보 관리 실습 페이지." />
+  <meta name="twitter:image" content="https://aebonlee.github.io/hd-08/og-image.png" />
   <style>
     :root {
       --bg: #f4f7f6;
@@ -609,7 +629,7 @@
     <aside class="brand-panel">
       <div class="brand-lockup">
         <div class="logo">MH</div>
-        <div class="brand-name" data-app-name>Member Hub</div>
+        <div class="brand-name" data-app-name>hd-08 멤버십</div>
       </div>
 
       <section class="hero">
@@ -637,7 +657,7 @@
       <div class="auth-shell">
         <div class="mobile-brand">
           <div class="logo">MH</div>
-          <span data-app-name>Member Hub</span>
+          <span data-app-name>hd-08 멤버십</span>
         </div>
 
         <nav class="tabs" aria-label="회원 메뉴">
@@ -847,17 +867,25 @@
 
     /*
       -------------------------------------------------------------
-      재사용 설정
-      1) APP_NAME / SITE_CODE를 프로젝트마다 변경하세요.
-      2) GitHub Actions 배포 시 __SUPABASE_URL__ / __SUPABASE_PUBLISHABLE_KEY__
-         자리에는 Repository Variables 값이 자동 주입됩니다.
-      3) Actions를 쓰지 않고 index.html만 바로 올려도 아래 DEFAULT 값으로 동작합니다.
+      사이트 설정
+
+      1) 이 사이트의 Supabase 객체는 전부 hd08_ 접두사를 쓴다.
+         Supabase는 전 사이트가 한 프로젝트를 공유하므로, 접두사가 없으면
+         다른 사이트 테이블과 이름이 부딪힌다.
+      2) SIGNUP_SOURCE는 auth.users 트리거의 발화 조건이다.
+         supabase/2026-08-12_hd08_membership.sql 의 when 절 문자열과
+         한 글자라도 다르면 프로필이 조용히 안 만들어진다.
+      3) GitHub Actions 배포 시 아래 BUILD_* 두 상수의 자리표시자를
+         Repository Variables 값으로 치환한다.
+         (여기에 자리표시자 문자열을 그대로 적으면 이 주석까지 치환된다)
+      4) 변수를 등록하지 않고 index.html만 올려도 아래 DEFAULT 값으로 동작한다.
+         (클린 빌드에서 값이 비면 로그인이 통째로 깨지므로 fallback은 필수다)
       -------------------------------------------------------------
     */
-    const APP_NAME = "Member Hub";
-    const SITE_CODE = "default";
-    const PROFILE_TABLE = "site_member_profiles";
-    const SIGNUP_SOURCE = "reusable-membership-v1";
+    const APP_NAME = "hd-08 멤버십";
+    const SITE_CODE = "hd-08";
+    const PROFILE_TABLE = "hd08_profiles";
+    const SIGNUP_SOURCE = "hd08-membership-v1";
 
     const BUILD_SUPABASE_URL = "__SUPABASE_URL__";
     const BUILD_SUPABASE_PUBLISHABLE_KEY = "__SUPABASE_PUBLISHABLE_KEY__";
